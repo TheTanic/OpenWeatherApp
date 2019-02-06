@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:persistent="true"
+        android:defaultValue="@string/pref_source_openweathermap_value"
+        android:entries="@array/pref_source_titles"
+        android:entryValues="@array/pref_source_values"
+        android:key="@string/pref_source_key"
+        android:title="@string/pref_source_title"/>
+    <PreferenceCategory
+        android:title="@string/pref_source_advanced_categories"
+        android:persistent="false">
+        <EditTextPreference
+            android:title="@string/pref_source_enter_key_title"
+            android:persistent="true"
+            android:key="@string/pref_source_enter_key_key"
+            />
+        <Preference
+            android:persistent="false"
+            android:key="@string/pref_source_get_key_key"
+            android:title="@string/pref_source_get_key"/>
+    </PreferenceCategory>
+</PreferenceScreen>
