@@ -72,4 +72,16 @@
     <string name="home_fragment_current_btn">Get current weather</string>
     <string name="home_fragment_forecast_btn">Get forecast</string>
     <string name="home_fragment_use_gps_location">Use GPS location</string>
+
+    <!-- No GPS Alert -->
+    <string name="no_gps_message">Your GPS is disabled. Do you want to enable it?</string>
+    <string name="no_gps_title">No GPS</string>
+
+    <!-- Generals -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- No WiFi Alert -->
+    <string name="no_wifi_message">Your WiFi is disabled and you choose the WiFi-only mode. Do you want to enable it?</string>
+    <string name="no_wifi_title">No WiFi</string>
 </resources>

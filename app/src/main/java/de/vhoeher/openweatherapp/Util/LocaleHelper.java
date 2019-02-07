@@ -1,4 +1,4 @@
-package de.vhoeher.openweatherapp.Util;
+package de.vhoeher.openweatherapp.util;
 
 import android.annotation.TargetApi;
 import android.content.Context;

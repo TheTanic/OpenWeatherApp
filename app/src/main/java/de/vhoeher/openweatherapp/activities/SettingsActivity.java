@@ -20,7 +20,8 @@ import android.text.TextUtils;
 import java.util.List;
 
 import de.vhoeher.openweatherapp.R;
-import de.vhoeher.openweatherapp.Util.LocaleHelper;
+import de.vhoeher.openweatherapp.datasource.DataSourceFactory;
+import de.vhoeher.openweatherapp.util.LocaleHelper;
 import de.vhoeher.openweatherapp.fragments.settings.ConnectivitySettingsFragment;
 import de.vhoeher.openweatherapp.fragments.settings.GeneralSettingsFragment;
 import de.vhoeher.openweatherapp.fragments.settings.SourceSettingsFragment;
@@ -88,6 +89,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 // simple string representation.
                 preference.setSummary(stringValue);
             }
+
+            if (preference.getKey().equals(preference.getContext().getString(R.string.pref_source_key)) ||
+                    preference.getKey().equals(preference.getContext().getString(R.string.pref_source_enter_key_key)))
+                DataSourceFactory.updateDataSource(preference, stringValue);
+
             return true;
         }
     };

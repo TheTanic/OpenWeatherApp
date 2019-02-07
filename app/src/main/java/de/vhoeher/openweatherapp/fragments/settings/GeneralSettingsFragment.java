@@ -9,13 +9,10 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import de.vhoeher.openweatherapp.R;
-import de.vhoeher.openweatherapp.Util.LocaleHelper;
+import de.vhoeher.openweatherapp.util.LocaleHelper;
 import de.vhoeher.openweatherapp.activities.SettingsActivity;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)

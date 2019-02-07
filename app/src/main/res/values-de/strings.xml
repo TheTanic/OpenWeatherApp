@@ -18,4 +18,10 @@
     <string name="home_fragment_current_btn">Aktuelles Wetter abrufen</string>
     <string name="home_fragment_use_gps_location">Verwende GPS Standort</string>
     <string name="home_fragment_forecast_btn">Wetterprognose abrufen</string>
+    <string name="no_gps_message">Das GPS ist deaktiviert. Möchten Sie es aktivieren?</string>
+    <string name="no_gps_title">Kein GPS</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="no_wifi_message">"Ihr WAN ist deaktiviert und Sie haben den WLAN Modus eingestellt. Wollen Sie das WLAN aktivieren? "</string>
+    <string name="no_wifi_title">Kein WLAN</string>
 </resources>

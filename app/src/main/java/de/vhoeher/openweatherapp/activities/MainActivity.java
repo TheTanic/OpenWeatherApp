@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,7 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import de.vhoeher.openweatherapp.R;
-import de.vhoeher.openweatherapp.Util.LocaleHelper;
+import de.vhoeher.openweatherapp.util.LocaleHelper;
 import de.vhoeher.openweatherapp.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
