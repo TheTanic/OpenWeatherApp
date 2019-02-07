@@ -1,4 +1,4 @@
-package de.vhoeher.openweatherapp.fragments;
+package de.vhoeher.openweatherapp.fragments.settings;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -6,13 +6,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.MenuItem;
 
 import de.vhoeher.openweatherapp.R;
 import de.vhoeher.openweatherapp.activities.GetAPIKeyActivity;
-import de.vhoeher.openweatherapp.activities.MainActivity;
 import de.vhoeher.openweatherapp.activities.SettingsActivity;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)

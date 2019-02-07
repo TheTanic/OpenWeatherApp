@@ -66,4 +66,10 @@
 
     <!-- Ringtone -->
     <string name="pref_ringtone_silent" translatable="false">silent</string>
+
+    <!-- Home Fragment -->
+    <string name="home_fragment_location">Location</string>
+    <string name="home_fragment_current_btn">Get current weather</string>
+    <string name="home_fragment_forecast_btn">Get forecast</string>
+    <string name="home_fragment_use_gps_location">Use GPS location</string>
 </resources>

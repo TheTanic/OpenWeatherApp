@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.GetAPIKeyActivity"
-            android:theme="@style/AppTheme.NoActionbar"
+
             ></activity>
         <activity
             android:name=".activities.SettingsActivity"

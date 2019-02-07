@@ -1,4 +1,4 @@
-package de.vhoeher.openweatherapp.fragments;
+package de.vhoeher.openweatherapp.fragments.settings;
 
 import android.annotation.TargetApi;
 import android.content.Intent;

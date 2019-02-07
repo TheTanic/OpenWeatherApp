@@ -2,7 +2,6 @@ package de.vhoeher.openweatherapp.activities;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -16,17 +15,15 @@ import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.MenuItem;
 
 import java.util.List;
 
 import de.vhoeher.openweatherapp.R;
 import de.vhoeher.openweatherapp.Util.LocaleHelper;
-import de.vhoeher.openweatherapp.fragments.ConnectivitySettingsFragment;
-import de.vhoeher.openweatherapp.fragments.GeneralSettingsFragment;
-import de.vhoeher.openweatherapp.fragments.SourceSettingsFragment;
+import de.vhoeher.openweatherapp.fragments.settings.ConnectivitySettingsFragment;
+import de.vhoeher.openweatherapp.fragments.settings.GeneralSettingsFragment;
+import de.vhoeher.openweatherapp.fragments.settings.SourceSettingsFragment;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

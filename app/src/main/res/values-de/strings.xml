@@ -14,4 +14,8 @@
     <string name="pref_source_enter_key_title">API-Schlüssel</string>
     <string name="nav_home">Start</string>
     <string name="nav_history">Verlauf</string>
+    <string name="home_fragment_location">Standort</string>
+    <string name="home_fragment_current_btn">Aktuelles Wetter abrufen</string>
+    <string name="home_fragment_use_gps_location">Verwende GPS Standort</string>
+    <string name="home_fragment_forecast_btn">Wetterprognose abrufen</string>
 </resources>
