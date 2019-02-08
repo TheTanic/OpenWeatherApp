@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -44,12 +42,9 @@ public class SingleWeatherDataFragment extends Fragment {
         ((TextView) view.findViewById(R.id.tv_precipation)).setText(model.getmPrecipitation());
 
         String dateFormat = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(getString(R.string.pref_general_dateformat_key), getString(R.string.pref_general_dateformat_dd_mm_yyyy));
-        if(dateFormat == null)
-            return null;
 
         Date date = new Date(model.getDataTimestamp() * 1000);
         DateFormat formatter = new SimpleDateFormat(dateFormat);
-        TimeZone timeZone = TimeZone.getDefault();
         formatter.setTimeZone(TimeZone.getDefault());
         ((TextView) view.findViewById(R.id.tv_data_timestamp)).setText(formatter.format(date));
         date = new Date(model.getRequestTimestamp() * 1000);

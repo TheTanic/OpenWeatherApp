@@ -145,18 +145,27 @@ public class HomeFragment extends Fragment {
                 return;
         }
 
-        if (!mUseGPSLocationSwitch.isChecked())
+        if (!mUseGPSLocationSwitch.isChecked()) {
+            if (mLocationET.getText().toString().isEmpty()) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), getString(R.string.no_location_entered), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return;
+            }
             if (currentWeather)
                 DataSourceFactory.getDataSourceInstance(getContext()).fetchCurrentWeatherByCity(mLocationET.getText().toString(), mCurrentWeatherCallback);
             else
                 DataSourceFactory.getDataSourceInstance(getContext()).fetchCurrentWeatherByCity(mLocationET.getText().toString(), mForecastCallback);
-        else {
+        } else {
             if (ActivityCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
             try {
                 Location gpsLocation = getLastKnownLocation();
-                if(gpsLocation == null)
+                if (gpsLocation == null)
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

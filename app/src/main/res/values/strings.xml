@@ -90,6 +90,7 @@
     <string name="weather_data_wind_direction">Wind direction</string>
     <string name="weather_data_pressure">Pressure</string>
     <string name="weather_data_precipitation">Precipitation</string>
+    <string name="weather_data_request_timestamp">Request timestamp</string>
 
     <!-- No GPS Location -->
     <string name="no_gps_location">Not able to get your current GPS location</string>
@@ -97,5 +98,6 @@
     <!-- No API Key -->
     <string name="no_api_key_message">Either there is no API-Key present, or the key is not valid. Do you want to go to the source settings? </string>
     <string name="no_api_key_title">Invalid API-Key</string>
-    <string name="weather_data_request_timestamp">Request timestamp</string>
+    <string name="no_location_entered">Please enter a location</string>
+
 </resources>
