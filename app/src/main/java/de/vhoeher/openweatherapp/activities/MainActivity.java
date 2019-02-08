@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -33,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Get preferences
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if(mSharedPreferences.getString(getString(R.string.pref_source_key), null) == null){
+            mSharedPreferences.edit().putString(getString(R.string.pref_source_key),getString(R.string.pref_source_openweathermap_value)).commit();
+        }
         mInitialLocale = LocaleHelper.getPersistedLocale(this);
 
         //Set Toolbar
@@ -67,9 +69,10 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.content_frame, new HomeFragment());
-            transaction.commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_frame, new HomeFragment())
+                    .commit();
         }
     }
 

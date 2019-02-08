@@ -32,8 +32,8 @@
 
     <string name="pref_general_dateformat">Date format</string>
     <string name="pref_general_dateformat_key" translatable="false">pref_dateformat</string>
-    <string name="pref_general_dateformat_dd_mm_yyyy" translatable="false">DD.MM.YYYY</string>
-    <string name="pref_general_dateformat_mm_dd_yyyy" translatable="false">MM.DD.YYYY</string>
+    <string name="pref_general_dateformat_dd_mm_yyyy" translatable="false">dd.MM.YYYY HH:mm:ss</string>
+    <string name="pref_general_dateformat_mm_dd_yyyy" translatable="false">MM.dd.YYYY HH:mm:ss</string>
     <string-array name="pref_general_dateformat_titles">
         <item>@string/pref_general_dateformat_dd_mm_yyyy</item>
         <item>@string/pref_general_dateformat_mm_dd_yyyy</item>
@@ -84,4 +84,18 @@
     <!-- No WiFi Alert -->
     <string name="no_wifi_message">Your WiFi is disabled and you choose the WiFi-only mode. Do you want to enable it?</string>
     <string name="no_wifi_title">No WiFi</string>
+    <string name="weather_data_humidity">Humidity</string>
+    <string name="weather_data_data_timestamp">Data timestamp</string>
+    <string name="weather_data_wind_speed">Wind speed</string>
+    <string name="weather_data_wind_direction">Wind direction</string>
+    <string name="weather_data_pressure">Pressure</string>
+    <string name="weather_data_precipitation">Precipitation</string>
+
+    <!-- No GPS Location -->
+    <string name="no_gps_location">Not able to get your current GPS location</string>
+
+    <!-- No API Key -->
+    <string name="no_api_key_message">Either there is no API-Key present, or the key is not valid. Do you want to go to the source settings? </string>
+    <string name="no_api_key_title">Invalid API-Key</string>
+    <string name="weather_data_request_timestamp">Request timestamp</string>
 </resources>

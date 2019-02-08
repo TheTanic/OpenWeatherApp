@@ -23,17 +23,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
 
 import de.vhoeher.openweatherapp.R;
 import de.vhoeher.openweatherapp.datasource.DataSourceFactory;
+import de.vhoeher.openweatherapp.datasource.IDataSource;
+import de.vhoeher.openweatherapp.model.WeatherDataModel;
+import de.vhoeher.openweatherapp.util.HistoryUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-
-import static android.content.Context.LOCATION_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +50,7 @@ public class HomeFragment extends Fragment {
     WifiManager mWifiManager = null;
     Callback mCurrentWeatherCallback = null;
     Callback mForecastCallback = null;
+    HistoryUtil mHistoryUtil;
 
     public HomeFragment() {
     }
@@ -61,6 +64,7 @@ public class HomeFragment extends Fragment {
         mLocationET = view.findViewById(R.id.et_location);
         mUseGPSLocationSwitch = view.findViewById(R.id.use_gps_location);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        mHistoryUtil = HistoryUtil.getInstance(getContext().getApplicationContext());
 
         mUseGPSLocationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -97,7 +101,26 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.d("Test", response.body().string());
+
+                IDataSource source = DataSourceFactory.getDataSourceInstance(getContext());
+                if (!source.isResponseCodeValid(response.code()))
+                    return;
+
+                WeatherDataModel model = DataSourceFactory.getDataSourceInstance(getContext()).convertJSONToSingleData(response.body().string());
+                if (model == null)
+                    return;
+
+                mHistoryUtil.addDataToHistory(model);
+
+                Fragment fragment = new SingleWeatherDataFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", model);
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         };
 
@@ -133,6 +156,13 @@ public class HomeFragment extends Fragment {
             }
             try {
                 Location gpsLocation = getLastKnownLocation();
+                if(gpsLocation == null)
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(), R.string.no_gps_location, Toast.LENGTH_SHORT);
+                        }
+                    });
                 if (currentWeather)
                     DataSourceFactory.getDataSourceInstance(getContext()).fetchCurrentWeatherByCoordinates(gpsLocation.getLatitude(), gpsLocation.getLongitude(), mCurrentWeatherCallback);
                 else
