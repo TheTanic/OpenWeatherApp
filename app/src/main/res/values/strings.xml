@@ -1,8 +1,140 @@
 <resources>
-    <string name="app_name">OpenWeatherApp</string>
-    <!-- Nav Items -->
-    <string name="settings">Settings</string>
+    <string name="app_name" translatable="false">OpenWeatherApp</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- nav items -->
+    <string name="nav_settings">Settings</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_history">History</string>
+    <string name="nav_about">About</string>
+
+    <!-- Settings activity -->
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Settings header -->
+    <string name="pref_header_general">General</string>
+    <string name="pref_header_source">Source</string>
+    <string name="pref_header_connectivity">Connectivity</string>
+
+    <!-- General settings -->
+    <string name="pref_general_language">Language</string>
+    <string name="pref_general_language_key" translatable="false">pref_language</string>
+    <string name="pref_general_language_english" translatable="false">English</string>
+    <string name="pref_general_language_german" translatable="false">Deutsch</string>
+    <string name="pref_general_language_english_code" translatable="false">en</string>
+    <string name="pref_general_language_german_code" translatable="false">de</string>
+    <string-array name="pref_general_languages_titles">
+        <item>@string/pref_general_language_english</item>
+        <item>@string/pref_general_language_german</item>
+    </string-array>
+    <string-array name="pref_general_languages_values">
+        <item>@string/pref_general_language_english_code</item>
+        <item>@string/pref_general_language_german_code</item>
+    </string-array>
+
+    <string name="pref_general_dateformat">Date format</string>
+    <string name="pref_general_dateformat_key" translatable="false">pref_dateformat</string>
+    <string name="pref_general_dateformat_dd_mm_yyyy" translatable="false">dd.MM.YYYY HH:mm:ss</string>
+    <string name="pref_general_dateformat_mm_dd_yyyy" translatable="false">MM.dd.YYYY HH:mm:ss</string>
+    <string-array name="pref_general_dateformat_titles">
+        <item>@string/pref_general_dateformat_dd_mm_yyyy</item>
+        <item>@string/pref_general_dateformat_mm_dd_yyyy</item>
+    </string-array>
+    <string-array name="pref_general_dateformat_values">
+        <item>@string/pref_general_dateformat_dd_mm_yyyy</item>
+        <item>@string/pref_general_dateformat_mm_dd_yyyy</item>
+    </string-array>
+
+    <!-- Connectivity -->
+    <string name="pref_connectivity_wlan_key" translatable="false">pref_wlan</string>
+    <string name="pref_connectivity_wlan_title">Use WLAN only</string>
+
+    <!-- Source -->
+    <string name="pref_source_key" translatable="false">pref_source</string>
+    <string name="pref_source_title">Data source</string>
+    <string name="pref_source_openweathermap" translatable="false">OpenWeatherMap</string>
+    <string name="pref_source_openweathermap_value" translatable="false">OPENWEATHERMAP</string>
+    <string-array name="pref_source_titles">
+        <item>@string/pref_source_openweathermap</item>
+    </string-array>
+    <string-array name="pref_source_values">
+        <item>@string/pref_source_openweathermap_value</item>
+    </string-array>
+    <string name="pref_source_advanced_categories">Advanced source settings</string>
+    <string name="pref_source_enter_key_title">API-Key</string>
+    <string name="pref_source_enter_key_key" translatable="false">pref_api_key</string>
+    <string name="pref_source_get_key">Get API-Key</string>
+    <string name="pref_source_get_key_key" translatable="false">pref_get_key</string>
+
+    <!-- Ringtone -->
+    <string name="pref_ringtone_silent" translatable="false">silent</string>
+
+    <!-- Home Fragment -->
+    <string name="home_fragment_location">Location</string>
+    <string name="home_fragment_current_btn">Get current weather</string>
+    <string name="home_fragment_forecast_btn">Get forecast</string>
+    <string name="home_fragment_use_gps_location">Use GPS location</string>
+
+    <!-- No GPS Alert -->
+    <string name="no_gps_message">Your GPS is disabled. Do you want to enable it?</string>
+    <string name="no_gps_title">No GPS</string>
+
+    <!-- Generals -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- No WiFi Alert -->
+    <string name="no_wifi_message">Your WiFi is disabled and you choose the WiFi-only mode. Do you want to enable it?</string>
+    <string name="no_wifi_title">No WiFi</string>
+
+    <!-- Weather data -->
+    <string name="weather_data_humidity">Humidity</string>
+    <string name="weather_data_data_timestamp">Data timestamp</string>
+    <string name="weather_data_wind_speed">Wind speed</string>
+    <string name="weather_data_wind_direction">Wind direction</string>
+    <string name="weather_data_pressure">Pressure</string>
+    <string name="weather_data_precipitation">Precipitation</string>
+    <string name="weather_data_request_timestamp">Request timestamp</string>
+    <string name="weather_data_temperature">Temperature</string>
+
+    <!-- No GPS Location -->
+    <string name="no_gps_location">Not able to get your current GPS location</string>
+
+    <!-- No API Key -->
+    <string name="no_api_key_message">Either there is no API-Key present, or the key is not valid. Do you want to go to the source settings? </string>
+    <string name="no_api_key_title">Invalid API-Key</string>
+    <string name="no_location_entered">Please enter a location</string>
+    <string name="not_able_to_fetch">Not able to fetch the requested data.</string>
+
+
+    <!-- Forcast -->
+    <string name="forecast_xaxis">Date</string>
+    <string-array name="forecast_spinner_entries">
+        <item>@string/weather_data_temperature</item>
+        <item>@string/weather_data_wind_speed</item>
+        <item>@string/weather_data_humidity</item>
+    </string-array>
+
+    <!-- About -->
+    <string name="about_entry">The OpenWeatherApp is a simple android application, which offers the possibility to get the current weather and a forecast for a given position.
+        In addition it saves a history of requests and it is possible to use different data sources.\n
+        It was developed during my studies in Telematiks at the Technical University of Applied Sciences Wildau (3rd Master semester, Modul: Android).\n
+        Full code available at:<a href="https://github.com/TheTanic/OpenWeatherApp"> https://github.com/TheTanic/OpenWeatherApp</a>
+    </string>
+    <string name="about_third_party_headline">Third party components</string>
+    <string name="about_third_party_body" translatable="false">
+        GraphView v4.2.2\n
+        \tCopyright 2016 Jonas Gehring\n
+        \t<a href="http://www.android-graphview.org/">http://www.android-graphview.org/</a>\n
+        \tLicense: <a href="http://www.apache.org/licenses/LICENSE-2.0.html"> http://www.apache.org/licenses/LICENSE-2.0.html</a>\n
+        \n
+        OkHttp v3.9.1\n
+        \tCopyright 2016 Square, Inc.\n
+        \t<a href="https://square.github.io/okhttp/">https://square.github.io/okhttp/</a>\n
+        \tLicense:  <a href="http://www.apache.org/licenses/LICENSE-2.0.html"> http://www.apache.org/licenses/LICENSE-2.0.html</a>\n
+        \n
+        Weather icons\n
+        Icons made by <a href="https://www.flaticon.com/authors/those-icons">https://www.flaticon.com/authors/those-icons</a> from <a href="www.flaticon.com">www.flaticon.com</a>
+    </string>
+
+
 </resources>

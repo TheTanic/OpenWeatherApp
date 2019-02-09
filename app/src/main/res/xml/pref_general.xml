@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:entries="@array/pref_general_languages_titles"
+        android:entryValues="@array/pref_general_languages_values"
+        android:key="@string/pref_general_language_key"
+        android:title="@string/pref_general_language"
+        android:persistent="true"
+        android:defaultValue="@string/pref_general_language_english_code"/>
+    <ListPreference
+        android:entries="@array/pref_general_dateformat_titles"
+        android:entryValues="@array/pref_general_dateformat_values"
+        android:key="@string/pref_general_dateformat_key"
+        android:title="@string/pref_general_dateformat"
+        android:persistent="true"
+        android:defaultValue="@string/pref_general_dateformat_dd_mm_yyyy"/>
+</PreferenceScreen>
