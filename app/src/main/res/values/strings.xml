@@ -84,6 +84,8 @@
     <!-- No WiFi Alert -->
     <string name="no_wifi_message">Your WiFi is disabled and you choose the WiFi-only mode. Do you want to enable it?</string>
     <string name="no_wifi_title">No WiFi</string>
+
+    <!-- Weather data -->
     <string name="weather_data_humidity">Humidity</string>
     <string name="weather_data_data_timestamp">Data timestamp</string>
     <string name="weather_data_wind_speed">Wind speed</string>
@@ -91,6 +93,7 @@
     <string name="weather_data_pressure">Pressure</string>
     <string name="weather_data_precipitation">Precipitation</string>
     <string name="weather_data_request_timestamp">Request timestamp</string>
+    <string name="weather_data_temperature">Temperature</string>
 
     <!-- No GPS Location -->
     <string name="no_gps_location">Not able to get your current GPS location</string>
@@ -99,5 +102,15 @@
     <string name="no_api_key_message">Either there is no API-Key present, or the key is not valid. Do you want to go to the source settings? </string>
     <string name="no_api_key_title">Invalid API-Key</string>
     <string name="no_location_entered">Please enter a location</string>
+    <string name="not_able_to_fetch">Not able to fetch the requested data.</string>
+
+
+    <!-- Forcast -->
+    <string name="forecast_xaxis">Date</string>
+    <string-array name="forecast_spinner_entries">
+        <item>@string/weather_data_temperature</item>
+        <item>@string/weather_data_wind_speed</item>
+        <item>@string/weather_data_humidity</item>
+    </string-array>
 
 </resources>

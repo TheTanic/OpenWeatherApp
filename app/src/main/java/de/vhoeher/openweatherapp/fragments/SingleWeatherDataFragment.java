@@ -19,6 +19,8 @@ import de.vhoeher.openweatherapp.model.WeatherDataModel;
 
 public class SingleWeatherDataFragment extends Fragment {
 
+    public static final String DATA_ARGUMENT = "data";
+
     public SingleWeatherDataFragment() {
 
     }
@@ -28,7 +30,7 @@ public class SingleWeatherDataFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_single_weather_data, container, false);
         ImageView iv = view.findViewById(R.id.iv_weather);
-        WeatherDataModel model = (WeatherDataModel) getArguments().getSerializable("data");
+        WeatherDataModel model = (WeatherDataModel) getArguments().getSerializable(DATA_ARGUMENT);
         iv.setImageResource(R.drawable.ic_clear_d);
 
         ((ImageView) view.findViewById(R.id.iv_weather)).setImageResource(model.getIconID());

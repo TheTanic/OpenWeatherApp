@@ -31,6 +31,7 @@ import java.util.List;
 import de.vhoeher.openweatherapp.R;
 import de.vhoeher.openweatherapp.datasource.DataSourceFactory;
 import de.vhoeher.openweatherapp.datasource.IDataSource;
+import de.vhoeher.openweatherapp.model.ForecastModel;
 import de.vhoeher.openweatherapp.model.WeatherDataModel;
 import de.vhoeher.openweatherapp.util.HistoryUtil;
 import okhttp3.Call;
@@ -96,7 +97,7 @@ public class HomeFragment extends Fragment {
         mCurrentWeatherCallback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
+                showNotAbleToFetch();
             }
 
             @Override
@@ -107,14 +108,16 @@ public class HomeFragment extends Fragment {
                     return;
 
                 WeatherDataModel model = DataSourceFactory.getDataSourceInstance(getContext()).convertJSONToSingleData(response.body().string());
-                if (model == null)
+                if (model == null) {
+                    showNotAbleToFetch();
                     return;
+                }
 
                 mHistoryUtil.addDataToHistory(model);
 
                 Fragment fragment = new SingleWeatherDataFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("data", model);
+                bundle.putSerializable(SingleWeatherDataFragment.DATA_ARGUMENT, model);
                 fragment.setArguments(bundle);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
@@ -127,16 +130,43 @@ public class HomeFragment extends Fragment {
         mForecastCallback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
+                showNotAbleToFetch();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.d("Test", response.body().string());
+                IDataSource source = DataSourceFactory.getDataSourceInstance(getContext());
+                if (!source.isResponseCodeValid(response.code()))
+                    return;
+
+                ForecastModel model = source.convertJSONToForecast(response.body().string());
+                if (model == null) {
+                    showNotAbleToFetch();
+                    return;
+                }
+
+                Fragment fragment = new ForecastFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(ForecastFragment.DATA_ARGUMENT, model);
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         };
 
         return view;
+    }
+
+    private void showNotAbleToFetch() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(), getString(R.string.not_able_to_fetch), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void fetchData(boolean currentWeather) {
@@ -158,7 +188,7 @@ public class HomeFragment extends Fragment {
             if (currentWeather)
                 DataSourceFactory.getDataSourceInstance(getContext()).fetchCurrentWeatherByCity(mLocationET.getText().toString(), mCurrentWeatherCallback);
             else
-                DataSourceFactory.getDataSourceInstance(getContext()).fetchCurrentWeatherByCity(mLocationET.getText().toString(), mForecastCallback);
+                DataSourceFactory.getDataSourceInstance(getContext()).fetchForecastByCity(mLocationET.getText().toString(), mForecastCallback);
         } else {
             if (ActivityCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);

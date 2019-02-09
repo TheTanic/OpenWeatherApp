@@ -8,18 +8,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
-import android.util.JsonReader;
-import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
 import de.vhoeher.openweatherapp.R;
 import de.vhoeher.openweatherapp.activities.SettingsActivity;
 import de.vhoeher.openweatherapp.fragments.settings.SourceSettingsFragment;
+import de.vhoeher.openweatherapp.model.ForecastModel;
 import de.vhoeher.openweatherapp.model.WeatherDataModel;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -27,7 +27,7 @@ import okhttp3.Request;
 
 public class OpenWeatherMapDataSource implements IDataSource {
 
-    private final String BASE_URL_CURRENTWEATHER = "http://api.openweathermap.org/data/2.5/weather?";
+    private final String BASE_URL_CURRENT_WEATHER = "http://api.openweathermap.org/data/2.5/weather?";
     private final String BASE_URL_FORECAST = "http://api.openweathermap.org/data/2.5/forecast?";
     private static OpenWeatherMapDataSource mInstance = null;
     private Context mContext;
@@ -59,7 +59,7 @@ public class OpenWeatherMapDataSource implements IDataSource {
     @Override
     public void fetchCurrentWeatherByCity(String city, Callback callback) {
 
-        fetchByCity(BASE_URL_CURRENTWEATHER, city, callback);
+        fetchByCity(BASE_URL_CURRENT_WEATHER, city, callback);
     }
 
     private String getLanguage() {
@@ -89,7 +89,7 @@ public class OpenWeatherMapDataSource implements IDataSource {
 
     @Override
     public void fetchCurrentWeatherByCoordinates(double lat, double lon, Callback callback) {
-        fetchByCoordinates(BASE_URL_CURRENTWEATHER, lat, lon, callback);
+        fetchByCoordinates(BASE_URL_CURRENT_WEATHER, lat, lon, callback);
     }
 
     @Override
@@ -149,6 +149,36 @@ public class OpenWeatherMapDataSource implements IDataSource {
         }
 
         return null;
+    }
+
+    @Override
+    public ForecastModel convertJSONToForecast(String json) {
+        try{
+            ArrayList<Double> temperature = new ArrayList<>();
+            ArrayList<Double> humidity = new ArrayList<>();
+            ArrayList<Double> windSpeed = new ArrayList<>();
+            ArrayList<Long> timestamp = new ArrayList<>();
+            JSONObject rootObj = new JSONObject(json);
+            JSONArray data = rootObj.getJSONArray("list");
+            JSONObject obj = null;
+            JSONObject childObject = null;
+            String location = rootObj.getJSONObject("city").getString("name");
+            for(int i = 0; i < data.length(); i++){
+                obj = data.getJSONObject(i);
+                timestamp.add(obj.getLong("dt"));
+                childObject = obj.getJSONObject("main");
+                temperature.add(childObject.has("temp") ? childObject.getDouble("temp") : Double.MIN_VALUE);
+                humidity.add(childObject.has("humidity") ? childObject.getDouble("humidity") : Double.MIN_VALUE);
+                childObject = obj.getJSONObject("wind");
+                windSpeed.add(childObject.has("speed") ? childObject.getDouble("speed") : Double.MIN_VALUE);
+            }
+
+            return new ForecastModel(timestamp, humidity, temperature , windSpeed, location);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return  null;
     }
 
     @Override

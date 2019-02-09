@@ -1,5 +1,6 @@
 package de.vhoeher.openweatherapp.datasource;
 
+import de.vhoeher.openweatherapp.model.ForecastModel;
 import de.vhoeher.openweatherapp.model.WeatherDataModel;
 import okhttp3.Callback;
 
@@ -18,6 +19,8 @@ public interface IDataSource {
     void fetchForecastByCoordinates(double lat, double lon, Callback callback);
 
     WeatherDataModel convertJSONToSingleData(String json);
+
+    ForecastModel convertJSONToForecast(String json);
 
     boolean isResponseCodeValid(int code);
 }

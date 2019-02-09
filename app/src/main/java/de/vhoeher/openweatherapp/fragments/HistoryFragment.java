@@ -22,7 +22,7 @@ import de.vhoeher.openweatherapp.util.HistoryUtil;
 public class HistoryFragment extends Fragment implements HistoryAdapter.IHistoryItemClickListener {
 
 
-    ArrayList<WeatherDataModel> mHistory;
+    private ArrayList<WeatherDataModel> mHistory;
 
     public HistoryFragment() {
         // Required empty public constructor
