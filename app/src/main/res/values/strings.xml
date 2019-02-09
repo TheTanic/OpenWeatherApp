@@ -5,6 +5,7 @@
     <string name="nav_settings">Settings</string>
     <string name="nav_home">Home</string>
     <string name="nav_history">History</string>
+    <string name="nav_about">About</string>
 
     <!-- Settings activity -->
     <string name="title_activity_settings">Settings</string>
@@ -112,5 +113,28 @@
         <item>@string/weather_data_wind_speed</item>
         <item>@string/weather_data_humidity</item>
     </string-array>
+
+    <!-- About -->
+    <string name="about_entry">The OpenWeatherApp is a simple android application, which offers the possibility to get the current weather and a forecast for a given position.
+        In addition it saves a history of requests and it is possible to use different data sources.\n
+        It was developed during my studies in Telematiks at the Technical University of Applied Sciences Wildau (3rd Master semester, Modul: Android).\n
+        Full code available at:<a href="https://github.com/TheTanic/OpenWeatherApp"> https://github.com/TheTanic/OpenWeatherApp</a>
+    </string>
+    <string name="about_third_party_headline">Third party components</string>
+    <string name="about_third_party_body" translatable="false">
+        GraphView v4.2.2\n
+        \tCopyright 2016 Jonas Gehring\n
+        \t<a href="http://www.android-graphview.org/">http://www.android-graphview.org/</a>\n
+        \tLicense: <a href="http://www.apache.org/licenses/LICENSE-2.0.html"> http://www.apache.org/licenses/LICENSE-2.0.html</a>\n
+        \n
+        OkHttp v3.9.1\n
+        \tCopyright 2016 Square, Inc.\n
+        \t<a href="https://square.github.io/okhttp/">https://square.github.io/okhttp/</a>\n
+        \tLicense:  <a href="http://www.apache.org/licenses/LICENSE-2.0.html"> http://www.apache.org/licenses/LICENSE-2.0.html</a>\n
+        \n
+        Weather icons\n
+        Icons made by <a href="https://www.flaticon.com/authors/those-icons">https://www.flaticon.com/authors/those-icons</a> from <a href="www.flaticon.com">www.flaticon.com</a>
+    </string>
+
 
 </resources>

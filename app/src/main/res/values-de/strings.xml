@@ -38,4 +38,10 @@
     <string name="no_location_entered">Bitte geben Sie einen Standoirt ein</string>
     <string name="not_able_to_fetch">Abfrage fehlgeschlagen</string>
     <string name="forecast_xaxis">Datum</string>
+    <string name="about_third_party_headline">Drittanbieter Komponenten</string>
+    <string name="about_entry">Die OpenWeatherApp ist eine einfache Android Applikation, die die Möglichkeit bietet das aktuelle Wetter und eine Wettervorhersage, in Abhängigkeit einer gegebenen Position, zu ermitteln.
+Darüber hinaus wird eine Historie der abgefragten Daten erstellt und man kann zwischen verschiedenen Datenquellen wählen.\n
+Die Applikation wurde im Rahmen des Telematik Studiums an der TH Wildau entwickelt (3. Mastersemester, Modul: Android)\n
+Der komplette Code ist verfügbar unter: <a href="https://github.com/TheTanic/OpenWeatherApp"> https://github.com/TheTanic/OpenWeatherApp</a></string>
+    <string name="nav_about">Info</string>
 </resources>

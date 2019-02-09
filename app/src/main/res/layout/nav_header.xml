@@ -6,12 +6,34 @@
     android:padding="16dp"
     android:theme="@style/PopupOverlay"
     android:orientation="vertical"
-    android:gravity="bottom">
+    android:gravity="bottom"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
+    <android.support.v7.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:elevation="12dp"
+        android:id="@+id/view2"
+        card_view:cardCornerRadius="50dp"
+        android:layout_centerHorizontal="true"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        android:layout_gravity="center">
+        <ImageView
+            android:layout_height="80dp"
+            android:layout_width="match_parent"
+            android:id="@+id/imageView1"
+            android:src="@drawable/ic_clear_d"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true">
+        </ImageView>
+    </android.support.v7.widget.CardView>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textAlignment="center"/>
 
 </LinearLayout>

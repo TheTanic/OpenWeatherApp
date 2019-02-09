@@ -16,9 +16,6 @@ import de.vhoeher.openweatherapp.adapter.HistoryAdapter;
 import de.vhoeher.openweatherapp.model.WeatherDataModel;
 import de.vhoeher.openweatherapp.util.HistoryUtil;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HistoryFragment extends Fragment implements HistoryAdapter.IHistoryItemClickListener {
 
 

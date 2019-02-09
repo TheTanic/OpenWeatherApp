@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import de.vhoeher.openweatherapp.R;
+import de.vhoeher.openweatherapp.fragments.AboutFragment;
 import de.vhoeher.openweatherapp.fragments.HistoryFragment;
 import de.vhoeher.openweatherapp.util.LocaleHelper;
 import de.vhoeher.openweatherapp.fragments.HomeFragment;
@@ -72,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
                                 getSupportFragmentManager()
                                         .beginTransaction()
                                         .replace(R.id.content_frame, new HistoryFragment())
+                                        .commit();
+                            case R.id.nav_about:
+                                getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .replace(R.id.content_frame, new AboutFragment())
                                         .commit();
                             default:
                                 break;
