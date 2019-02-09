@@ -13,15 +13,21 @@ import de.vhoeher.openweatherapp.R;
 import de.vhoeher.openweatherapp.activities.GetAPIKeyActivity;
 import de.vhoeher.openweatherapp.activities.SettingsActivity;
 
+/**
+ * PreferenceFragment for the Source settings
+ *
+ * @author Victor Höher
+ * @version 1.0
+ */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class SourceSettingsFragment extends PreferenceFragment {
-
-    private static final String TAG = SourceSettingsFragment.class.getSimpleName();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref_source);
+
+        //Start intent to get the api key
         Preference btn = findPreference(getString(R.string.pref_source_get_key_key));
         btn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override

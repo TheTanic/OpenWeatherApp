@@ -17,22 +17,29 @@ import java.util.TimeZone;
 import de.vhoeher.openweatherapp.R;
 import de.vhoeher.openweatherapp.model.WeatherDataModel;
 
+/**
+ * This Fragment shows a single weather data.
+ *
+ * @author Victor Höher
+ * @version 1.0
+ */
 public class SingleWeatherDataFragment extends Fragment {
 
     public static final String DATA_ARGUMENT = "data";
-
-    public SingleWeatherDataFragment() {
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_single_weather_data, container, false);
-        ImageView iv = view.findViewById(R.id.iv_weather);
+
+        //Get model
         WeatherDataModel model = (WeatherDataModel) getArguments().getSerializable(DATA_ARGUMENT);
+
+        //Set icon
+        ImageView iv = view.findViewById(R.id.iv_weather);
         iv.setImageResource(R.drawable.ic_clear_d);
 
+        //Get Views
         ((ImageView) view.findViewById(R.id.iv_weather)).setImageResource(model.getIconID());
         ((TextView) view.findViewById(R.id.tv_city)).setText(model.getLocationName());
         ((TextView) view.findViewById(R.id.tv_temperature)).setText(model.getTemperature());
@@ -43,8 +50,10 @@ public class SingleWeatherDataFragment extends Fragment {
         ((TextView) view.findViewById(R.id.tv_pressure)).setText(model.getPressure());
         ((TextView) view.findViewById(R.id.tv_precipation)).setText(model.getmPrecipitation());
 
+        //Get DateFormat
         String dateFormat = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(getString(R.string.pref_general_dateformat_key), getString(R.string.pref_general_dateformat_dd_mm_yyyy));
 
+        //Create the dates
         Date date = new Date(model.getDataTimestamp() * 1000);
         DateFormat formatter = new SimpleDateFormat(dateFormat);
         formatter.setTimeZone(TimeZone.getDefault());

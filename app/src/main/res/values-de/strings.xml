@@ -33,7 +33,7 @@
     <string name="weather_data_request_timestamp">Anfrage-Zeitstempel</string>
     <string name="weather_data_temperature">Temperatur</string>
     <string name="no_gps_location">Aktuelle Position konnte nicht bestimmt werden</string>
-    <string name="no_api_key_message">Es ist kein API-Key verfügbar, oder er ist ungültig. Möchten Sie zu den Quell-EInstellungen?</string>
+    <string name="no_api_key_message">Es ist kein API-Key verfügbar, oder er ist ungültig. Möchten Sie zu den Quell-Einstellungen?</string>
     <string name="no_api_key_title">Ungültiger API-Key</string>
     <string name="no_location_entered">Bitte geben Sie einen Standoirt ein</string>
     <string name="not_able_to_fetch">Abfrage fehlgeschlagen</string>

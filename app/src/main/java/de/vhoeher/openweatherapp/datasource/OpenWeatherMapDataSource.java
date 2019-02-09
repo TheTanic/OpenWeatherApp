@@ -13,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import de.vhoeher.openweatherapp.R;
@@ -25,6 +24,13 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
+/**
+ * Class which implements the IDataSource interface and represents a DataSource to OpenWeatherMap.org.
+ * This class is a singleton!
+ *
+ * @author Victor Hoeher
+ * @version 1.0
+ */
 public class OpenWeatherMapDataSource implements IDataSource {
 
     private final String BASE_URL_CURRENT_WEATHER = "http://api.openweathermap.org/data/2.5/weather?";
@@ -34,12 +40,23 @@ public class OpenWeatherMapDataSource implements IDataSource {
     private String mAPIKey;
     private SharedPreferences mSharedPreference;
 
+    /**
+     * Private constructor to follow the Singleton Design
+     *
+     * @param context The context, in which this DataSource is created.
+     */
     private OpenWeatherMapDataSource(Context context) {
         mContext = context;
         mSharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
         mAPIKey = mSharedPreference.getString(context.getString(R.string.pref_source_enter_key_key), "");
     }
 
+    /**
+     * Getter for the Singleton instance. Creates a new instance, if there is none present.
+     *
+     * @param ctx The context, in which the instance should be created.
+     * @return The Singleton instance of this class
+     */
     static OpenWeatherMapDataSource getInstance(Context ctx) {
         if (mInstance == null)
             mInstance = new OpenWeatherMapDataSource(ctx);
@@ -62,28 +79,54 @@ public class OpenWeatherMapDataSource implements IDataSource {
         fetchByCity(BASE_URL_CURRENT_WEATHER, city, callback);
     }
 
+    /**
+     * Getter for the current language of the user.
+     *
+     * @return The string representation fo the language
+     */
     private String getLanguage() {
         return mSharedPreference.getString(mContext.getString(R.string.pref_general_language_key), "");
     }
 
 
+    /**
+     * Fetch the resource by the city name
+     *
+     * @param baseURL  The base URL of the request
+     * @param city     The city name
+     * @param callback The callback, which should be called afterwards
+     */
     private void fetchByCity(String baseURL, String city, Callback callback) {
         OkHttpClient client = new OkHttpClient();
 
+        //Create URL
         String url = String.format("%sq=%s&APPID=%s&lang=%s&units=metric", baseURL, city, mAPIKey, getLanguage());
+        //Build request
         Request request = new Request.Builder().
                 url(url)
                 .build();
+        //Perform request
         client.newCall(request).enqueue(callback);
     }
 
+    /**
+     * etch the resource by the given coordinates
+     *
+     * @param baseURL  The base URL of the request
+     * @param lat      Latitude value of the coordinate
+     * @param lon      Longitude value of the coordinate
+     * @param callback The callback, which should be called afterwards
+     */
     private void fetchByCoordinates(String baseURL, double lat, double lon, Callback callback) {
         OkHttpClient client = new OkHttpClient();
 
+        //Create URL
         String url = String.format("%slat=%.4f&lon=%.4f&APPID=%s&lang=%s&units=metric", baseURL, lat, lon, mAPIKey, getLanguage());
+        //Build Request
         Request request = new Request.Builder().
                 url(url)
                 .build();
+        //Perform request
         client.newCall(request).enqueue(callback);
     }
 
@@ -105,7 +148,9 @@ public class OpenWeatherMapDataSource implements IDataSource {
     @Override
     public WeatherDataModel convertJSONToSingleData(String json) {
 
+        //Try to parse the given json.
         try {
+
             JSONObject jsonObj = new JSONObject(json);
             JSONObject obj = jsonObj.getJSONObject("main");
             String temperature = obj.has("temp") ? obj.getString("temp") + " °C" : " - ";
@@ -153,7 +198,8 @@ public class OpenWeatherMapDataSource implements IDataSource {
 
     @Override
     public ForecastModel convertJSONToForecast(String json) {
-        try{
+        try {
+            //Convert the json and collect the values of the different types
             ArrayList<Double> temperature = new ArrayList<>();
             ArrayList<Double> humidity = new ArrayList<>();
             ArrayList<Double> windSpeed = new ArrayList<>();
@@ -163,7 +209,7 @@ public class OpenWeatherMapDataSource implements IDataSource {
             JSONObject obj = null;
             JSONObject childObject = null;
             String location = rootObj.getJSONObject("city").getString("name");
-            for(int i = 0; i < data.length(); i++){
+            for (int i = 0; i < data.length(); i++) {
                 obj = data.getJSONObject(i);
                 timestamp.add(obj.getLong("dt"));
                 childObject = obj.getJSONObject("main");
@@ -173,19 +219,22 @@ public class OpenWeatherMapDataSource implements IDataSource {
                 windSpeed.add(childObject.has("speed") ? childObject.getDouble("speed") : Double.MIN_VALUE);
             }
 
-            return new ForecastModel(timestamp, humidity, temperature , windSpeed, location);
-        }catch (JSONException e){
+            return new ForecastModel(timestamp, humidity, temperature, windSpeed, location);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return  null;
+        return null;
     }
 
     @Override
     public boolean isResponseCodeValid(int code) {
+        //Code is valid when it is between 200 and 300
         if (200 <= code && code <= 300)
             return true;
         if (code == 401) {
+            //This code shows that the API-Key is not valid
+            //Show AlertDialog
             final Activity activity = (Activity) mContext;
             activity.runOnUiThread(new Runnable() {
                 @Override
@@ -218,6 +267,12 @@ public class OpenWeatherMapDataSource implements IDataSource {
         return false;
     }
 
+    /**
+     * Converts the icon name of OpenWeatherMap to the locale icon ids.
+     *
+     * @param icon The icon name of OpenWeatherMap
+     * @return The id of the locale icon, or -1 if the icon is not found
+     */
     private int convertToIconID(String icon) {
 
         switch (icon) {

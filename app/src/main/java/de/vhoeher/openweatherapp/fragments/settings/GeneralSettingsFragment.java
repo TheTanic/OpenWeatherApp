@@ -15,6 +15,12 @@ import de.vhoeher.openweatherapp.R;
 import de.vhoeher.openweatherapp.util.LocaleHelper;
 import de.vhoeher.openweatherapp.activities.SettingsActivity;
 
+/**
+ * PreferenceFragment for the General settings
+ *
+ * @author Victor Höher
+ * @version 1.0
+ */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class GeneralSettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -29,9 +35,12 @@ public class GeneralSettingsFragment extends PreferenceFragment implements Share
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        //If the version if below 28 do not change language on the fly
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            return;
         switch (key) {
             case "pref_language":
-                LocaleHelper.setLocale(getContext(), PreferenceManager.getDefaultSharedPreferences(getContext()).getString(key, ""));
+                LocaleHelper.setLocale(getContext(), PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(key, ""));
                 getActivity().recreate(); // necessary here because this Activity is currently running and thus a recreate() in onResume() would be too late
                 break;
         }

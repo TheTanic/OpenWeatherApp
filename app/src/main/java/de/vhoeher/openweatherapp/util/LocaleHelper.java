@@ -14,7 +14,8 @@ import de.vhoeher.openweatherapp.R;
 
 /**
  * Manages setting of the app's locale.
- * See: https://stackoverflow.com/a/47223492/3888657
+ * See: https://stackoverflow.com/a/47223492/3888657 and
+ * https://github.com/gunhansancar/ChangeLanguageExample/blob/bbb0f4b21af49a7978721f7dee878361a8d19400/app/src/main/java/com/gunhansancar/changelanguageexample/helper/LocaleHelper.java
  */
 public class LocaleHelper {
 

@@ -13,12 +13,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activities.GetAPIKeyActivity"
-
-            ></activity>
+            android:name=".activities.GetAPIKeyActivity"></activity>
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.SettingsActivity"></activity>
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionbar">

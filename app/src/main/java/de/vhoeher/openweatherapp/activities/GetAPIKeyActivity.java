@@ -8,21 +8,33 @@ import android.webkit.WebViewClient;
 
 import de.vhoeher.openweatherapp.R;
 
+/**
+ * This Activity is responsible to help the user to get his OpenWeatherMap API-Key.
+ * It uses a WebView for that task.
+ *
+ * @author Victor Hoeher
+ * @version 1.0
+ */
 public class GetAPIKeyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Set content
         setContentView(R.layout.activity_get_apikey);
 
-        WebView webView = (WebView) findViewById(R.id.openweathermap_webview);
-        webView.setWebViewClient(new WebViewClient(){
+        //Get WebView
+        WebView webView = findViewById(R.id.openweathermap_webview);
+        webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 view.loadUrl(request.getUrl().toString());
                 return false;
             }
         });
+
+        //Load URL
         webView.loadUrl("https://home.openweathermap.org/api_keys");
     }
 }

@@ -11,7 +11,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-//http://www.java2s.com/Code/Android/Date-Type/ObjecttoStringandStringtoObject.htm
+/**
+ * This class is from: http://www.java2s.com/Code/Android/Date-Type/ObjecttoStringandStringtoObject.htm
+ */
 public class ObjectSerializerUtil {
     public static String objectToString(Serializable obj) {
         try {
