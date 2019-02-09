@@ -20,6 +20,14 @@ import de.vhoeher.openweatherapp.fragments.HistoryFragment;
 import de.vhoeher.openweatherapp.util.LocaleHelper;
 import de.vhoeher.openweatherapp.fragments.HomeFragment;
 
+/**
+ * This is the MainActivity. It is the central part of the application.
+ * It contains a NavigationDrawer with a menu.
+ * Depending on the user action it loads different Fragments in the content area.
+ *
+ * @author Victor Hoeher
+ * @version 1.0
+ */
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout = null;
@@ -34,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Get preferences
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if(mSharedPreferences.getString(getString(R.string.pref_source_key), null) == null){
-            mSharedPreferences.edit().putString(getString(R.string.pref_source_key),getString(R.string.pref_source_openweathermap_value)).commit();
+        if (mSharedPreferences.getString(getString(R.string.pref_source_key), null) == null) {
+            mSharedPreferences.edit().putString(getString(R.string.pref_source_key), getString(R.string.pref_source_openweathermap_value)).commit();
         }
         mInitialLocale = LocaleHelper.getPersistedLocale(this);
 
@@ -46,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        //Find Drawer
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
+        //Set NavigationView
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -60,25 +70,31 @@ public class MainActivity extends AppCompatActivity {
                         //Update UI
                         switch (menuItem.getItemId()) {
                             case R.id.nav_settings:
+                                //Start SettingsActivity
                                 Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
                                 startActivity(settingsIntent);
                                 break;
                             case R.id.nav_home:
+                                //Show HomeFragment
                                 getSupportFragmentManager()
                                         .beginTransaction()
                                         .replace(R.id.content_frame, new HomeFragment())
                                         .commit();
                                 break;
                             case R.id.nav_history:
+                                //Show HistoryFragment
                                 getSupportFragmentManager()
                                         .beginTransaction()
                                         .replace(R.id.content_frame, new HistoryFragment())
                                         .commit();
+                                break;
                             case R.id.nav_about:
+                                //Show AboutFragment
                                 getSupportFragmentManager()
                                         .beginTransaction()
                                         .replace(R.id.content_frame, new AboutFragment())
                                         .commit();
+                                break;
                             default:
                                 break;
                         }
@@ -86,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        //Check if there was already a state for this activity. If not show the HomeFragment.
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -102,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //Check if the locale changed (language). If yes recreate the Activity
         if (mInitialLocale != null && !mInitialLocale.equals(LocaleHelper.getPersistedLocale(this))) {
             recreate();
         }

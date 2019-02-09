@@ -20,16 +20,42 @@ import java.util.TimeZone;
 import de.vhoeher.openweatherapp.R;
 import de.vhoeher.openweatherapp.model.WeatherDataModel;
 
+/**
+ * Interface to handle a click on an item of the history view.
+ *
+ * @author Victor Hoeher
+ * @version 1.0
+ */
 interface IHistoryClickListener {
+
+    /**
+     * Handle click on an item of the RecyclerView
+     *
+     * @param position Position of the clicked item
+     */
     void onHistoryClick(int position);
 }
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> implements IHistoryClickListener{
+/**
+ * Class which extends the RecyclerView.Adapter for the History View.
+ * It handles the clicks on the item and calls a given listener if a model is clicked.
+ *
+ * @author Victor Hoeher
+ * @version 1.0
+ */
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> implements IHistoryClickListener {
 
     private ArrayList<WeatherDataModel> mHistory;
     private DateFormat mDateFormat;
     private IHistoryItemClickListener mListener;
 
+    /**
+     * Constructor for the HistoryAdapter
+     *
+     * @param history  An List of historic WeatherDataModels, which should be presented
+     * @param context  The context, in which the Adapter should be used.
+     * @param listener A listener, which is called, when an item is clicked.
+     */
     public HistoryAdapter(ArrayList<WeatherDataModel> history, Context context, IHistoryItemClickListener listener) {
         mListener = listener;
         mHistory = history;
@@ -48,6 +74,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     @Override
     public void onBindViewHolder(@NonNull HistoryViewHolder historyViewHolder, int i) {
+
+        //Set the values for the ViewHolder
         WeatherDataModel model = mHistory.get(i);
         historyViewHolder.mIconView.setImageResource(model.getIconID());
         historyViewHolder.mLocationTV.setText(model.getLocationName());
@@ -66,17 +94,35 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     @Override
     public void onHistoryClick(int position) {
-        if(mListener == null)
+        //Call the listener
+        if (mListener == null)
             return;
         mListener.modelClicked(mHistory.get(position));
     }
 
-    public interface IHistoryItemClickListener{
+    /**
+     * Interface to handle a click on an item of the history view.
+     *
+     * @author Victor Hoeher
+     * @version 1.0
+     */
+    public interface IHistoryItemClickListener {
 
+        /**
+         * Handler for a click on an item.
+         *
+         * @param model The model, on which the clicked item bases.
+         */
         void modelClicked(WeatherDataModel model);
     }
 
 
+    /**
+     * ViewHolder for the HistoryAdapter.
+     *
+     * @author Victor Hoeher
+     * @version 1.0
+     */
     public static class HistoryViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView mLocationTV, mTemperatureTV, mTimestampTV;
@@ -84,8 +130,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         protected LinearLayout mDetailsPanel;
         protected ImageView mIconView;
 
+        /**
+         * Constructor of the ViewHolder
+         *
+         * @param itemView The view of a single item
+         * @param listener Listener, which should be called, when an item is clicked.
+         */
         public HistoryViewHolder(@NonNull View itemView, final IHistoryClickListener listener) {
             super(itemView);
+
+            //Find views
             mLocationTV = itemView.findViewById(R.id.tv_city);
             mTemperatureTV = itemView.findViewById(R.id.tv_temperature);
             mTimestampTV = itemView.findViewById(R.id.tv_condition);
@@ -93,9 +147,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             mDetailsPanel = itemView.findViewById(R.id.detail_panel);
             mIconView = itemView.findViewById(R.id.iv_weather);
 
+            //Set Margins
             ViewGroup.MarginLayoutParams marginParams = new ViewGroup.MarginLayoutParams(itemView.getLayoutParams());
             marginParams.setMargins(5, 5, 5, 5);
             itemView.setLayoutParams(marginParams);
+
+            //Set ClickListener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

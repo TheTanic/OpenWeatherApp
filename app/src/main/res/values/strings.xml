@@ -33,8 +33,8 @@
 
     <string name="pref_general_dateformat">Date format</string>
     <string name="pref_general_dateformat_key" translatable="false">pref_dateformat</string>
-    <string name="pref_general_dateformat_dd_mm_yyyy" translatable="false">dd.MM.YYYY HH:mm:ss</string>
-    <string name="pref_general_dateformat_mm_dd_yyyy" translatable="false">MM.dd.YYYY HH:mm:ss</string>
+    <string name="pref_general_dateformat_dd_mm_yyyy" translatable="false">dd.MM.yyyy HH:mm:ss</string>
+    <string name="pref_general_dateformat_mm_dd_yyyy" translatable="false">MM.dd.yyyy HH:mm:ss</string>
     <string-array name="pref_general_dateformat_titles">
         <item>@string/pref_general_dateformat_dd_mm_yyyy</item>
         <item>@string/pref_general_dateformat_mm_dd_yyyy</item>

@@ -39,7 +39,10 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
- * A simple {@link Fragment} subclass.
+ * The HomeFragment. This Fragment gives the user the opportunity to perform requests to get weather data.
+ *
+ * @author Victor Höher
+ * @version 1.0
  */
 public class HomeFragment extends Fragment {
 
@@ -53,20 +56,19 @@ public class HomeFragment extends Fragment {
     Callback mForecastCallback = null;
     HistoryUtil mHistoryUtil;
 
-    public HomeFragment() {
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        //Get the child views
         mLocationET = view.findViewById(R.id.et_location);
         mUseGPSLocationSwitch = view.findViewById(R.id.use_gps_location);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         mHistoryUtil = HistoryUtil.getInstance(getContext().getApplicationContext());
 
+        //Switch for the GPS usage
         mUseGPSLocationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -78,6 +80,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //Get the Buttons and set the listeners
         Button currentWeatherBtn = view.findViewById(R.id.btn_current);
         currentWeatherBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +97,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Create the callback for the currentWeather requests.
         mCurrentWeatherCallback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -103,18 +107,23 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
+                //Get the DataSource
                 IDataSource source = DataSourceFactory.getDataSourceInstance(getContext());
+                //Check if the code is valid
                 if (!source.isResponseCodeValid(response.code()))
                     return;
 
+                //Parse the response
                 WeatherDataModel model = DataSourceFactory.getDataSourceInstance(getContext()).convertJSONToSingleData(response.body().string());
                 if (model == null) {
                     showNotAbleToFetch();
                     return;
                 }
 
+                //Add the new data to the history
                 mHistoryUtil.addDataToHistory(model);
 
+                //Show the SingleWeatherDataFragment with the new data
                 Fragment fragment = new SingleWeatherDataFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(SingleWeatherDataFragment.DATA_ARGUMENT, model);
@@ -127,6 +136,7 @@ public class HomeFragment extends Fragment {
             }
         };
 
+        // Create the callback for the weather forecast requests.
         mForecastCallback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -135,16 +145,20 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                //Get the datasource
                 IDataSource source = DataSourceFactory.getDataSourceInstance(getContext());
+                //Check if the code is valid
                 if (!source.isResponseCodeValid(response.code()))
                     return;
 
+                //Parse the response
                 ForecastModel model = source.convertJSONToForecast(response.body().string());
                 if (model == null) {
                     showNotAbleToFetch();
                     return;
                 }
 
+                //Show the ForecastFragment
                 Fragment fragment = new ForecastFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(ForecastFragment.DATA_ARGUMENT, model);
@@ -160,6 +174,9 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Shows a toast, which notifies the user, that the request was not successful.
+     */
     private void showNotAbleToFetch() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -169,13 +186,22 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    /**
+     * Method to fetch the data.
+     *
+     * @param currentWeather True if the current weather should be fetched, False if the weather forecast should be fetched.
+     */
     private void fetchData(boolean currentWeather) {
+
+        //Check WLAN-Mode
         if (mSharedPreferences.getBoolean(getString(R.string.pref_connectivity_wlan_key), false)) {
             if (!checkWiFi())
                 return;
         }
 
+        //Check if GPS should be used
         if (!mUseGPSLocationSwitch.isChecked()) {
+            //If the user did not enter a location, notify him that he should enter one
             if (mLocationET.getText().toString().isEmpty()) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -185,23 +211,31 @@ public class HomeFragment extends Fragment {
                 });
                 return;
             }
+            //Perform request
             if (currentWeather)
                 DataSourceFactory.getDataSourceInstance(getContext()).fetchCurrentWeatherByCity(mLocationET.getText().toString(), mCurrentWeatherCallback);
             else
                 DataSourceFactory.getDataSourceInstance(getContext()).fetchForecastByCity(mLocationET.getText().toString(), mForecastCallback);
         } else {
+
+            //Check if App is allowed to use fine location
             if (ActivityCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
             try {
+                //Get location
                 Location gpsLocation = getLastKnownLocation();
-                if (gpsLocation == null)
+                if (gpsLocation == null) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getContext(), R.string.no_gps_location, Toast.LENGTH_SHORT);
+                            //Show that the app was not able to get the current location
+                            Toast.makeText(getContext(), R.string.no_gps_location, Toast.LENGTH_SHORT).show();
                         }
                     });
+                    return;
+                }
+                //Perform request
                 if (currentWeather)
                     DataSourceFactory.getDataSourceInstance(getContext()).fetchCurrentWeatherByCoordinates(gpsLocation.getLatitude(), gpsLocation.getLongitude(), mCurrentWeatherCallback);
                 else
@@ -212,12 +246,19 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    /**
+     * Getter for the last known location
+     *
+     * @return The last known location, or null if there is no location
+     */
     private Location getLastKnownLocation() {
         List<String> providers = mLocationManager.getProviders(true);
         Location bestLocation = null;
+        //Check if the app is allowed to get the fine location
         if (ActivityCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
+        //Check all providers
         for (String provider : providers) {
 
             Location l = mLocationManager.getLastKnownLocation(provider);
@@ -232,23 +273,37 @@ public class HomeFragment extends Fragment {
         return bestLocation;
     }
 
+    /**
+     * Check if GPS is enabled
+     *
+     * @return True if GPS is enabled, False if not
+     */
     private boolean checkGPS() {
         if (mLocationManager == null)
             mLocationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
         return mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
+    /**
+     * Check if WiFi is active.
+     *
+     * @return True if WiFi is active, False if not
+     */
     private boolean checkWiFi() {
 
         if (mWifiManager == null)
             mWifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(getContext().WIFI_SERVICE);
 
         boolean flag = mWifiManager.isWifiEnabled();
+        //If WiFi is not active. Show the dialog
         if (!flag)
             showNoWifiDialog();
-        return mWifiManager.isWifiEnabled();
+        return flag;
     }
 
+    /**
+     * Show the dialog, which informs the user, that the WiFi is off.
+     */
     private void showNoWifiDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(R.string.no_wifi_message)
@@ -271,6 +326,9 @@ public class HomeFragment extends Fragment {
         mAlertDialog.show();
     }
 
+    /**
+     * Show the dialog, which informs the user, that GPS is not activated
+     */
     private void showNoGPSDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

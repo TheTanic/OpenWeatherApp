@@ -8,6 +8,12 @@ import android.view.ViewGroup;
 
 import de.vhoeher.openweatherapp.R;
 
+/**
+ * Fragment, which shows the about informations(License etc.)
+ *
+ * @author Victor Höher
+ * @version 1.0
+ */
 public class AboutFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

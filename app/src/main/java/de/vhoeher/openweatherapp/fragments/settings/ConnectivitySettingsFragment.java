@@ -5,12 +5,17 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.provider.Settings;
 import android.view.MenuItem;
 
 import de.vhoeher.openweatherapp.R;
 import de.vhoeher.openweatherapp.activities.SettingsActivity;
 
+/**
+ * PreferenceFragment for the Connectivity settings
+ *
+ * @author Victor Höher
+ * @version 1.0
+ */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class ConnectivitySettingsFragment extends PreferenceFragment {
 
