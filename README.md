@@ -1,3 +1,9 @@
+<p align="left">
+  <a href="https://github.com/TheTanic/OpenWeatherApp/actions/workflows/android.yml">
+    <img alt="build and test status" src="https://github.com/TheTanic/OpenWeatherApp/actions/workflows/android.yml/badge.svg">
+  </a>
+</p>
+
 # OpenWeatherApp
 
 The OpenWeatherApp is a simple android application, which offers the possibility to get the current weather and a forecast for a given position. In addition it saves a history of requests.
