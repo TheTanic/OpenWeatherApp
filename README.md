@@ -2,6 +2,9 @@
   <a href="https://github.com/TheTanic/OpenWeatherApp/actions/workflows/android.yml">
     <img alt="build and test status" src="https://github.com/TheTanic/OpenWeatherApp/actions/workflows/android.yml/badge.svg">
   </a>
+  <a href="https://github.com/TheTanic/OpenWeatherApp/tags">
+    <img alt="Latest Tag" src="https://img.shields.io/github/v/tag/TheTanic/OpenWeatherApp?label=Latest%20Tag&style=flat-square">
+  </a>
 </p>
 
 # OpenWeatherApp
